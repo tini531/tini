@@ -30,6 +30,19 @@
     body ul, body ol {
     margin-top:10px;
     }
+    h2 {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+/* 當滑到位置時，JS 會幫 h2 加上這個 class */
+h2.appear {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+    
     .navbar{
         display:flex;
         justify-content:space-between;
@@ -104,7 +117,6 @@
     background: linear-gradient(to right, #FF4500 50%, #ffba39 100%);
     background-size: 200% 100%;
     background-position: left bottom; /* 平常只看左邊 50% (純橘色) */
-    
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -114,6 +126,22 @@
     
     /* 2. 這裡 transition 監控背景位置的移動 */
     transition: background-position 0.3s ease, transform 0.3s ease-in;
+    animation:pulseScale 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseScale {
+  0% {
+    transform: scale(1); /* 原大小 */
+    box-shadow: 0 0 0 0 rgb(255, 228, 140); /* 初始光暈 */
+  }
+  70% {
+    transform: scale(1.05); /* 放大 1.05 倍 */
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); /* 光暈擴散並變透明 */
+  }
+  100% {
+    transform: scale(1); /* 回到原大小 */
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); /* 光暈消失 */
+  }
 }
 
 .banner button:hover {
@@ -122,15 +150,33 @@
 }
     .container-one{
         padding:200px 300px;
+        background-size: cover;
         background-image:url(link/bk-1.png);
-        
+        animation: kenBurns 10s ease-in-out infinite alternate; /* alternate 讓它放大後會縮小回來 */
+
     }
+    @keyframes kenBurns {
+  0% {
+    background-size: 1920px auto;
+    background-position:left center;
+  }
+  100% {
+    background-size: 2208px auto;
+    background-position: top left; /* 稍微往左上角偏，增加動態感 */
+  }
+}
+
     .container-two{
         padding:200px 300px;
         background-image:url(link/bk-1.png);
         z-index: -3; 
-        
+        animation: bgScroll 15s ease-in-out infinite alternate; /* alternate 讓它放大後會縮小回來 */
     }
+   @keyframes bgScroll {
+  from { background-position: 0 0; }
+  to { background-position: -1000px 0; } /* 往左拉動，數值需配合圖片寬度 */
+}
+    
     .container-two .txt h2{
         color:#FF562A;
     }
@@ -158,6 +204,21 @@
     }
     .container-one .row  img:hover{
         box-shadow:0px 0px 10px rgba(141, 141, 141, 0.5);
+    }
+    .container-one .row img{
+        animation:floating 3s ease-in-out infinite;
+    }
+
+    @keyframes floating{
+        0%{
+            transform:translateY(0px);
+        }
+        50%{
+            transform:translateY(-10px);
+        }
+        100%{
+            transform:translateY(0px);
+        }
     }
     
     .container-two #display-area{
@@ -340,10 +401,31 @@ transform: scale(1.4);
     transform: scale(1.4);
     z-index: 10; /* 確保放大的圖標疊在最上層，不會被其他圖標蓋住 */
 }
-@media (max-width: 480px){
 
+@media (min-width:1200px){
+        .banner button{
+            bottom:40%;
+        }
+        
+    }
+    @media (max-width:1200px){
+.container-one{
+        padding:200px 100px;}
+        .container-two{
+        padding:200px 100px;}
+        .container-three{
+    padding: 20px 40px;
+    z-index: 10;
+
+    }
+}
+@media (max-width: 480px){
+.banner button {
+    position: absolute;
+    bottom: 30%;}
 }
 @media (max-width: 768px){
+
     .navbar .logo{
         width: 250px;
     }
@@ -376,27 +458,16 @@ transform: scale(1.4);
     .nav-links.active {
         display: flex;
     }
-}
+    .container-one {
+        padding: 100px 50px;
+    }
+
+      }
+
 
     
 
-    @media (min-width:1200px){
-        .banner button{
-            bottom:40%;
-        }
-        
-    }
-    @media (max-width:1200px){
-.container-one{
-        padding:200px 100px;}
-        .container-two{
-        padding:200px 100px;}
-        .container-three{
-    padding: 20px 40px;
-    z-index: 10;
-
-    }
-}
+    
     @media (max-width:1419px){
         .container-two #display-area:before{
             display:none;
@@ -583,6 +654,24 @@ function changeContent(name, info) {
         descElement.innerText = info;
     }
 }
+
+
+// 1. 直接抓取網頁上所有的 <h2> 標籤
+const allH2 = document.querySelectorAll('h2');
+
+const scrollObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('appear'); // 加上剛剛設定的 .appear
+      observer.unobserve(entry.target);     // 讓動畫只跑一次
+    }
+  });
+}, {
+  threshold: 0.15 // 標題露出 15% 的時候觸發
+});
+
+// 2. 讓監視器開始通通監控
+allH2.forEach(h2 => scrollObserver.observe(h2));
 </script>
 </div>
         </div>
