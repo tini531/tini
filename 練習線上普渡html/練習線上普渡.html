@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
     <title>Document</title>
     <style>
-/* 修正後的 CSS：將 <uniquifier> 替換為實際名稱 */
         
         .noto-serif-tc{
         font-family: "Noto Serif TC", serif;
@@ -36,7 +35,7 @@
   transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
-/* 當滑到位置時，JS 會幫 h2 加上這個 class */
+
 h2.appear {
   opacity: 1;
   transform: translateY(0);
@@ -80,18 +79,16 @@ h2.appear {
     .navbar .nav-links li a:hover{
         color:#05bbbb;
     }
-    /* === 漢堡排變成叉叉 (X) 的動畫 === */
-/* 第一條線：往下位移並旋轉 45 度 */
+
 .hamburger.active .bar:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
 }
 
-/* 第二條線：透明度歸零 (隱藏) */
+
 .hamburger.active .bar:nth-child(2) {
     opacity: 0; 
 }
 
-/* 第三條線：往上位移並反向旋轉 45 度 */
 .hamburger.active .bar:nth-child(3) {
     transform: translateY(-6px) rotate(-45deg);
 }
@@ -113,10 +110,9 @@ h2.appear {
     position: absolute;
     bottom:35%;
     right: 30%;
-    /* 1. 這裡改成設定 background (包含漸變)，並把寬度撐到 200% */
     background: linear-gradient(to right, #FF4500 50%, #ffba39 100%);
     background-size: 200% 100%;
-    background-position: left bottom; /* 平常只看左邊 50% (純橘色) */
+    background-position: left bottom; 
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -124,36 +120,35 @@ h2.appear {
     letter-spacing: 2px;
     border-radius: 5px;
     
-    /* 2. 這裡 transition 監控背景位置的移動 */
+   
     transition: background-position 0.3s ease, transform 0.3s ease-in;
     animation:pulseScale 1.5s ease-in-out infinite;
 }
 
 @keyframes pulseScale {
   0% {
-    transform: scale(1); /* 原大小 */
-    box-shadow: 0 0 0 0 rgb(255, 228, 140); /* 初始光暈 */
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgb(255, 228, 140);
   }
   70% {
-    transform: scale(1.05); /* 放大 1.05 倍 */
-    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); /* 光暈擴散並變透明 */
+    transform: scale(1.05); 
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); 
   }
   100% {
-    transform: scale(1); /* 回到原大小 */
-    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); /* 光暈消失 */
+    transform: scale(1); 
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); 
   }
 }
 
 .banner button:hover {
-    /* 3. 滑鼠移上去時，把背景往左拉，漸變色就「滑」進來了，這是有秒數的！ */
+   
     background-position: right bottom;
 }
     .container-one{
         padding:200px 300px;
         background-size: cover;
         background-image:url(link/bk-1.png);
-        animation: kenBurns 10s ease-in-out infinite alternate; /* alternate 讓它放大後會縮小回來 */
-
+        animation: kenBurns 10s ease-in-out infinite alternate;
     }
     @keyframes kenBurns {
   0% {
@@ -162,7 +157,7 @@ h2.appear {
   }
   100% {
     background-size: 2208px auto;
-    background-position: top left; /* 稍微往左上角偏，增加動態感 */
+    background-position: top left; 
   }
 }
 
@@ -170,11 +165,11 @@ h2.appear {
         padding:200px 300px;
         background-image:url(link/bk-1.png);
         z-index: -3; 
-        animation: bgScroll 15s ease-in-out infinite alternate; /* alternate 讓它放大後會縮小回來 */
+        animation: bgScroll 15s ease-in-out infinite alternate; 
     }
    @keyframes bgScroll {
   from { background-position: 0 0; }
-  to { background-position: -1000px 0; } /* 往左拉動，數值需配合圖片寬度 */
+  to { background-position: -1000px 0; } 
 }
     
     .container-two .txt h2{
@@ -262,7 +257,7 @@ h2.appear {
     .container-two .map .map-icon:hover,
     .container-two .map .map-icon:focus {
     transform: scale(1.4);
-    z-index: 10; /* 建議加上，確保放大時不會被旁邊的圖標蓋住 */
+    z-index: 10; 
 }
     .container-two .flex-col-1{
         z-index: 10;
@@ -345,34 +340,34 @@ transform: scale(1.4);
     /* 1. 地圖容器設置 */
 .map {
     position: relative;
-    width: 100%;       /* 寬度隨螢幕自動調整 */
+    width: 100%;      
     
     z-index: 3;
 }
 
-/* 2. 地圖圖片設置 */
+
 .map img {
-    width: 100%;       /* 圖片永遠填滿父容器 */
-    height: auto;      /* 高度自動按比例縮放 */
+    width: 100%;      
+    height: auto;     
     display: block;
     
 }
 
-/* 3. 圖標設置 (統一類別) */
+
 .map-icon {
     position: absolute;
-    width: 8%;         /* 使用百分比設定大小，讓圖標隨地圖縮小 */
-    padding-top: 8%;   /* 保持正方形比例 (padding-top 是基於寬度計算的) */
+    width: 8%;         
+    padding-top: 8%;  
     background-size: contain;
     background-repeat: no-repeat;
     cursor: pointer;
 }
 
 .map-flex {
-    display: flex;             /* 關鍵：開啟 Flex 佈局 */
-    flex-wrap: wrap;           /* 關鍵：空間不足時自動換行 */
-    gap: 20px;                 /* 區塊之間的間隔 */
-    align-items: flex-start;   /* 垂直對齊頂部 */
+    display: flex;             
+    flex-wrap: wrap;           
+    gap: 20px;                
+    align-items: flex-start;   
     justify-content: center;
 }
 .container-three{
@@ -384,22 +379,21 @@ transform: scale(1.4);
     
 }
 
-/* 讓圖標有平滑的縮放動畫 */
+
 .map .map-icon {
     transition: transform 0.3s ease;
-    z-index: 1; /* 預設層級 */
+    z-index: 1;
 }
 
-/* 滑鼠經過圖標時也會放大 (保留互動感) */
 .map .map-icon:hover {
     transform: scale(1.4);
     z-index: 2;
 }
 
-/* 點擊後「固定」放大的專屬樣式 */
+
 .map .map-icon.active {
     transform: scale(1.4);
-    z-index: 10; /* 確保放大的圖標疊在最上層，不會被其他圖標蓋住 */
+    z-index: 10; 
 }
 
 @media (min-width:1200px){
@@ -441,10 +435,10 @@ transform: scale(1.4);
         display: block;
     }
     
-    /* 確保 navbar 允許內容換行，這樣 100% 寬度的選單才能掉到下一行 */
+    
     .navbar{
         flex-wrap: wrap; 
-        /* 原本的 position: relative; 在這裡就不需要了，可以刪除 */
+        
     }
 
     .navbar .nav-links{
@@ -599,52 +593,52 @@ transform: scale(1.4);
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // === 1. 處理右側文字清單的點擊 ===
+    
     const links = document.querySelectorAll('a[data-text]');
     links.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault(); // 阻止網頁跳回頂端
+            e.preventDefault();
             const targetId = this.getAttribute('data-text');
             const targetElement = document.getElementById(targetId);
             
             if (targetElement) {
-                targetElement.click(); // 觸發對應圖標的點擊事件
+                targetElement.click(); 
             }
         });
     });
 
-    // === 2. 處理地圖圖標的點擊 (放大固定與切換) ===
+    
     const mapIcons = document.querySelectorAll('.map-icon');
     mapIcons.forEach(icon => {
         icon.addEventListener('click', function() {
-            // 先把所有圖標的 active 狀態移除
+           
             mapIcons.forEach(i => i.classList.remove('active'));
-            // 把當下被點擊的圖標加上 active 狀態
+            
             this.classList.add('active');
         });
     });
 
-    // === 3. 處理漢堡選單的點擊與叉叉動畫 ===
+   
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
     
     if (hamburger && navLinks) {
         hamburger.addEventListener('click', function() {
-            // 切換 hamburger 的 active 狀態 (觸發 CSS 變叉叉動畫)
+           
             this.classList.toggle('active');
-            // 切換導覽列的顯示/隱藏狀態
+           
             navLinks.classList.toggle('active'); 
         });
     }
 
-    // === 4. 確保 DOM 載入後，預設點擊第一個宮廟 ===
+    
     const firstTemple = document.getElementById('temple01');
     if(firstTemple) {
         firstTemple.click(); 
     }
 });
 
-// === 5. 驅動文字內容變換的核心 (放在全域環境供 HTML 的 onclick 呼叫) ===
+
 function changeContent(name, info) {
     const titleElement = document.getElementById('title');
     const descElement = document.getElementById('desc');
@@ -656,21 +650,21 @@ function changeContent(name, info) {
 }
 
 
-// 1. 直接抓取網頁上所有的 <h2> 標籤
+
 const allH2 = document.querySelectorAll('h2');
 
 const scrollObserver = new IntersectionObserver((entries, observer) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.classList.add('appear'); // 加上剛剛設定的 .appear
-      observer.unobserve(entry.target);     // 讓動畫只跑一次
+      entry.target.classList.add('appear');
+      observer.unobserve(entry.target);     
     }
   });
 }, {
-  threshold: 0.15 // 標題露出 15% 的時候觸發
+  threshold: 0.15 
 });
 
-// 2. 讓監視器開始通通監控
+
 allH2.forEach(h2 => scrollObserver.observe(h2));
 </script>
 </div>
